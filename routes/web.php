@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubmissionsController;
+use App\Models\Submission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,11 +19,23 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    //Find submissions
+    $submissions = Submission::all();
+
+    dd($submissions);
+
+    //TODO: Find better way to conditionally render authed/unauthed
     if (Auth::check()) {
-        return Inertia::render('Home');
+        return Inertia::render('Home', ['submissions' => $submissions,]);
     } else {
-        return Inertia::render('GuestHome');
+        return Inertia::render('GuestHome', ['submissions' => $submissions]);
     }
+});
+
+
+Route::prefix('submit')->group(function () {
+    Route::get('/', [SubmissionsController::class, 'create'])->name('submit');
+    Route::post('/', [SubmissionsController::class, 'store'])->name('submit');
 });
 
 Route::middleware('auth')->group(function () {

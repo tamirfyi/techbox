@@ -1,10 +1,6 @@
 import { useEffect, FormEventHandler } from "react";
-import Checkbox from "@/Components/Checkbox";
 import Guest from "@/Layouts/Guest";
 import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Login({
@@ -97,7 +93,7 @@ export default function Login({
                             href={route("password.request")}
                             className="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Forgot your password?
+                            forgot your password?
                         </Link>
                     )}
 
