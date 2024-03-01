@@ -1,6 +1,6 @@
 import React from "react";
 import { SubmissionItem } from "../types";
-import { formatDistance, subDays } from "date-fns";
+import { formatDistance } from "date-fns";
 import { Link } from "@inertiajs/react";
 
 interface HomeSubmissionPreviewProps {
@@ -15,7 +15,7 @@ const HomeSubmissionPreview = ({
     const created = new Date(submission.created_at);
     const current = new Date();
     const timeAgo = formatDistance(created, current, { addSuffix: true });
-    const submissionMetaDataString = `0 points by ${submission.username} ${timeAgo} | 0 comments`;
+    const submissionMetaDataString = `0 points by ${submission.username} ${timeAgo}`;
 
     return (
         <div className="flex gap-2">
@@ -34,7 +34,11 @@ const HomeSubmissionPreview = ({
                         >{`(${submission.url})`}</a>
                     )}
                 </div>
-                <p className="text-xs">{submissionMetaDataString}</p>
+                <div className="flex gap-1 text-xs">
+                    <p>{submissionMetaDataString}</p>
+                    <p>|</p>
+                    <p>0 comments</p>
+                </div>
             </div>
         </div>
     );

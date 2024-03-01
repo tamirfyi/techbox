@@ -22,6 +22,7 @@ export interface SubmissionItem {
     url: string;
     text: string;
     username: string;
+    user_id: number;
     created_at: Date;
     updated_at: Date;
 }

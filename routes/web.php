@@ -19,35 +19,11 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    //Find submissions
-    $submissions = Submission::all();
-    $submissions_with_metadata = [];
-
-    foreach ($submissions as $submission) {
-        $user = User::find($submission->user_id);
-        $submission_with_metadata = (object) [
-            'id' => $submission->id,
-            'title' => $submission->title,
-            'url' => $submission->url,
-            'text' => $submission->text,
-            'created_at' => $submission->created_at,
-            'username' => $user->name,
-        ];
-
-        $submissions_with_metadata[] = $submission_with_metadata;
-    }
-
-    //TODO: Find better way to conditionally render authed/unauthed
-    if (Auth::check()) {
-        return Inertia::render('Home', ['submissions' => $submissions_with_metadata]);
-    } else {
-        return redirect(route('login'));
-    }
-});
+Route::get('/', [SubmissionsController::class, 'index']);
 
 Route::prefix('item')->group(function () {
     Route::get('/{id}', [SubmissionsController::class, 'show'])->name('item');
+    Route::put('/{id}', [SubmissionsController::class, 'update'])->name('item.update');
 });
 
 
