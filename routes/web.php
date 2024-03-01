@@ -46,6 +46,10 @@ Route::get('/', function () {
     }
 });
 
+Route::prefix('item')->group(function () {
+    Route::get('/{id}', [SubmissionsController::class, 'show'])->name('item');
+});
+
 
 Route::prefix('submit')->group(function () {
     Route::get('/', [SubmissionsController::class, 'create'])->name('submit');

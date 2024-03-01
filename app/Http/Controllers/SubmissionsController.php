@@ -47,7 +47,8 @@ class SubmissionsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $submission = Submission::find($id);
+        return Inertia::render('Submission', ["submission" => $submission]);
     }
 
     /**

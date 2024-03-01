@@ -1,6 +1,7 @@
 import React from "react";
 import { SubmissionItem } from "../types";
 import { formatDistance, subDays } from "date-fns";
+import { Link } from "@inertiajs/react";
 
 interface HomeSubmissionPreviewProps {
     index: number;
@@ -21,7 +22,10 @@ const HomeSubmissionPreview = ({
             <p className="text-sm">{`${index}.`}</p>
             <div className="flex flex-col">
                 <div className="flex items-center justify-start gap-1">
-                    <p className="text-sm hover:cursor-pointer">{`${submission.title}`}</p>
+                    <Link
+                        href={route("item", { id: submission.id })}
+                        className="text-sm hover:cursor-pointer"
+                    >{`${submission.title}`}</Link>
                     {submission.url && (
                         <a
                             href={submission.url}

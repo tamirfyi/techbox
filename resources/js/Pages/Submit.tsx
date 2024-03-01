@@ -10,7 +10,7 @@ export default function Submit({ auth }: PageProps) {
         text: "",
     });
 
-    const submit = (e) => {
+    const submit = (e: any) => {
         e.preventDefault();
         post(route("submit"));
     };
