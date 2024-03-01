@@ -1,7 +1,6 @@
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, useForm } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { FormEventHandler } from "react";
 import InputError from "../Components/InputError";
 
 export default function Submit({ auth }: PageProps) {
@@ -11,7 +10,7 @@ export default function Submit({ auth }: PageProps) {
         text: "",
     });
 
-    const submit: FormEventHandler = (e) => {
+    const submit = (e) => {
         e.preventDefault();
         post(route("submit"));
     };
@@ -19,38 +18,52 @@ export default function Submit({ auth }: PageProps) {
     return (
         <Authenticated user={auth.user}>
             <Head title="Techbox" />
-            <form onSubmit={submit} className="flex flex-col items-start gap-2">
-                <div className="flex gap-2">
-                    <label htmlFor="title">title</label>
-                    <input
-                        id="title"
-                        name="title"
-                        value={data.title}
-                        onChange={(e) => setData("title", e.target.value)}
-                    />
-                    <InputError message={errors.title} className="mt-2" />
-                </div>
-                <div className="flex gap-2">
-                    <label htmlFor="url">url</label>
-                    <input
-                        id="url"
-                        name="url"
-                        value={data.url}
-                        onChange={(e) => setData("url", e.target.value)}
-                    />
-                    <InputError message={errors.url} className="mt-2" />
-                </div>
-                <div className="flex gap-2">
-                    <label htmlFor="text">text</label>
-                    <input
-                        id="text"
-                        name="text"
-                        value={data.text}
-                        onChange={(e) => setData("text", e.target.value)}
-                    />
-                    <InputError message={errors.text} className="mt-2" />
-                </div>
-                <button type="submit">submit</button>
+            <form onSubmit={submit} className="space-y-4">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td className="space-x-4">title</td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={data.title}
+                                    onChange={(e) =>
+                                        setData("title", e.target.value)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="space-x-4">url</td>
+                            <td>
+                                <input
+                                    type="url"
+                                    name="url"
+                                    value={data.url}
+                                    onChange={(e) =>
+                                        setData("url", e.target.value)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="pt-4">text</td>
+                            <td>
+                                <textarea
+                                    name="text"
+                                    rows={10}
+                                    cols={40}
+                                    value={data.text}
+                                    onChange={(e) =>
+                                        setData("text", e.target.value)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" value="submit" />
             </form>
         </Authenticated>
     );
