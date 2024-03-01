@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionsController;
 use App\Models\Submission;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,10 +22,25 @@ use Inertia\Inertia;
 Route::get('/', function () {
     //Find submissions
     $submissions = Submission::all();
+    $submissions_with_metadata = [];
+
+    foreach ($submissions as $submission) {
+        $user = User::find($submission->user_id);
+        $submission_with_metadata = (object) [
+            'id' => $submission->id,
+            'title' => $submission->title,
+            'url' => $submission->url,
+            'text' => $submission->text,
+            'created_at' => $submission->created_at,
+            'username' => $user->name,
+        ];
+
+        $submissions_with_metadata[] = $submission_with_metadata;
+    }
 
     //TODO: Find better way to conditionally render authed/unauthed
     if (Auth::check()) {
-        return Inertia::render('Home', ['submissions' => $submissions,]);
+        return Inertia::render('Home', ['submissions' => $submissions_with_metadata]);
     } else {
         return redirect(route('login'));
     }

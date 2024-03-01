@@ -12,11 +12,11 @@ export default function Home({ auth, submissions }: HomePageProps) {
         <Authenticated user={auth.user}>
             <Head title="Techbox" />
 
-            {/* List of posts */}
             <section className="flex flex-col gap-2">
                 {submissions.map((submission, index) => {
                     return (
                         <HomeSubmissionPreview
+                            key={submission.id}
                             submission={submission}
                             index={index + 1}
                         />

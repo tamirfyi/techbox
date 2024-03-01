@@ -2,6 +2,7 @@ import Authenticated from "@/Layouts/Authenticated";
 import { Head, useForm } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { FormEventHandler } from "react";
+import InputError from "../Components/InputError";
 
 export default function Submit({ auth }: PageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -27,6 +28,7 @@ export default function Submit({ auth }: PageProps) {
                         value={data.title}
                         onChange={(e) => setData("title", e.target.value)}
                     />
+                    <InputError message={errors.title} className="mt-2" />
                 </div>
                 <div className="flex gap-2">
                     <label htmlFor="url">url</label>
@@ -36,6 +38,7 @@ export default function Submit({ auth }: PageProps) {
                         value={data.url}
                         onChange={(e) => setData("url", e.target.value)}
                     />
+                    <InputError message={errors.url} className="mt-2" />
                 </div>
                 <div className="flex gap-2">
                     <label htmlFor="text">text</label>
@@ -45,6 +48,7 @@ export default function Submit({ auth }: PageProps) {
                         value={data.text}
                         onChange={(e) => setData("text", e.target.value)}
                     />
+                    <InputError message={errors.text} className="mt-2" />
                 </div>
                 <button type="submit">submit</button>
             </form>

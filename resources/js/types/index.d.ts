@@ -21,4 +21,7 @@ export interface SubmissionItem {
     title: string;
     url: string;
     text: string;
+    username: string;
+    created_at: Date;
+    updated_at: Date;
 }

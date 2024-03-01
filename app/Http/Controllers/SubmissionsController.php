@@ -25,7 +25,7 @@ class SubmissionsController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:64',
-            'url' => 'required|string|max:255',
+            'url' => 'nullable|string|max:255',
             'text' => 'required|string',
         ]);
 
@@ -39,7 +39,7 @@ class SubmissionsController extends Controller
         // Event used to send email notification
         // event(new Registered($user));
 
-        return redirect('home');
+        return redirect('/');
     }
 
     /**

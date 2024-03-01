@@ -15,6 +15,11 @@ class Submission extends Model
         'title',
         'url',
         'text',
-        'user_id'
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

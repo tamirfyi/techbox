@@ -1,5 +1,6 @@
 import React from "react";
 import { SubmissionItem } from "../types";
+import { formatDistance, subDays } from "date-fns";
 
 interface HomeSubmissionPreviewProps {
     index: number;
@@ -10,7 +11,11 @@ const HomeSubmissionPreview = ({
     index,
     submission,
 }: HomeSubmissionPreviewProps) => {
-    const submissionMetaDataString = `[points] points by [username] [timeSinecPosted] | [comments] comments`;
+    const created = new Date(submission.created_at);
+    const current = new Date();
+    const timeAgo = formatDistance(created, current, { addSuffix: true });
+
+    const submissionMetaDataString = `0 points by ${submission.username} ${timeAgo} | 0 comments`;
 
     return (
         <div className="flex gap-2">
