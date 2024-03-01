@@ -22,13 +22,11 @@ Route::get('/', function () {
     //Find submissions
     $submissions = Submission::all();
 
-    dd($submissions);
-
     //TODO: Find better way to conditionally render authed/unauthed
     if (Auth::check()) {
         return Inertia::render('Home', ['submissions' => $submissions,]);
     } else {
-        return Inertia::render('GuestHome', ['submissions' => $submissions]);
+        return redirect(route('login'));
     }
 });
 

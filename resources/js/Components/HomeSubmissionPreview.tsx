@@ -1,39 +1,29 @@
 import React from "react";
+import { SubmissionItem } from "../types";
 
 interface HomeSubmissionPreviewProps {
     index: number;
-    title: string;
-    link?: string;
-    numPoints: number;
-    username: string;
-    timeSincePosted: string;
-    numComments: number;
+    submission: SubmissionItem;
 }
 
 const HomeSubmissionPreview = ({
     index,
-    title,
-    link,
-    numPoints,
-    username,
-    timeSincePosted,
-    numComments,
+    submission,
 }: HomeSubmissionPreviewProps) => {
-    const submissionHeaderString = `${title}`;
-    const submissionMetaDataString = `${numPoints} points by ${username} ${timeSincePosted} | ${numComments} comments`;
+    const submissionMetaDataString = `[points] points by [username] [timeSinecPosted] | [comments] comments`;
 
     return (
         <div className="flex gap-2">
             <p className="text-sm">{`${index}.`}</p>
             <div className="flex flex-col">
                 <div className="flex items-center justify-start gap-2">
-                    <p className="text-sm hover:cursor-pointer">{`${title}`}</p>
-                    {link && (
+                    <p className="text-sm hover:cursor-pointer">{`${submission.title}`}</p>
+                    {submission.url && (
                         <a
-                            href={link}
+                            href={submission.url}
                             target="_blank"
                             className="text-xs text-gray-600 hover:underline underline-offset-1"
-                        >{`(${link})`}</a>
+                        >{`(${submission.url})`}</a>
                     )}
                 </div>
                 <p className="text-xs">{submissionMetaDataString}</p>
