@@ -23,3 +23,12 @@ class Submission extends Model
         return $this->belongsTo(User::class);
     }
 }
+
+enum SubmissionVisibility: int
+{
+    case Public = 0;
+    case Private = 1;
+    case Deleted = 2;
+    case Hidden = 3;
+    case Removed = 4;
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Submission;
+use App\Models\SubmissionVisibility;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -56,12 +57,14 @@ class SubmissionsController extends Controller
             'title' => 'required|string',
             'url' => 'nullable|string',
             'text' => 'required|string',
+            'visibility' => 'nullable|integer'
         ]);
 
         $submission = Submission::create([
-            'title' => $request->title,
-            'url' => $request->url,
-            'text' => $request->text,
+            'title' => $request['title'],
+            'url' => $request['url'],
+            'text' => $request['text'],
+            'visibility' => SubmissionVisibility::Public,
             'user_id' => auth()->user()->getAuthIdentifier()
         ]);
 
@@ -120,10 +123,18 @@ class SubmissionsController extends Controller
     }
 
     /**
+     * Update the status of submission to be 'deleted'
+     * (deleted = not visible to public, but remains in database)
+     */
+    public function delete(string $id)
+    {
+        $submission = Submission::find($id);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
     }
 }

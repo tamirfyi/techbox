@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('url')->nullable();
             $table->string('text');
+            $table->integer('visibility')->nullable();
             $table->timestamps();
 
             $table->integer('user_id')->unsigned();
