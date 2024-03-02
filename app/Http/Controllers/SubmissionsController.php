@@ -15,7 +15,7 @@ class SubmissionsController extends Controller
     public function index()
     {
         //Find submissions
-        $submissions = Submission::all();
+        $submissions = Submission::all()->where('visibility', SubmissionVisibility::Public);
         $submissions_with_metadata = [];
 
         foreach ($submissions as $submission) {
@@ -129,6 +129,10 @@ class SubmissionsController extends Controller
     public function delete(string $id)
     {
         $submission = Submission::find($id);
+        $submission->visibility = SubmissionVisibility::Deleted;
+        $submission->save();
+
+        return redirect("/");
     }
 
     /**

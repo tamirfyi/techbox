@@ -15,18 +15,10 @@ export default function Submission({ auth, submission }: SubmissionPageProps) {
     const timeAgo = formatDistance(created, current, { addSuffix: true });
     const submissionMetaDataString = `0 points by ${submission.username} ${timeAgo} `;
 
-    const [isEditing, setIsEditing] = useState<Boolean>(false);
-    const [editedText, setEditedText] = useState<string>(submission.text);
-
-    const onEdit = () => {
-        setEditedText(editedText);
-        router.visit(`/item/${submission.id}`, {
-            method: "put",
-            data: {
-                text: editedText,
-            },
-        });
-        setIsEditing(false);
+    const onDelete = () => {
+        if (confirm("do you really want to delete your submission?")) {
+            router.put(route("item.delete", submission.id));
+        }
     };
 
     return (
@@ -38,8 +30,6 @@ export default function Submission({ auth, submission }: SubmissionPageProps) {
                     <div className="flex gap-1 text-xs">
                         <p>{submissionMetaDataString}</p>
                         <p>|</p>
-                        <p>favorite</p>
-                        <p>|</p>
                         {submission.user_id == auth.user.id && (
                             <>
                                 <Link
@@ -49,25 +39,17 @@ export default function Submission({ auth, submission }: SubmissionPageProps) {
                                     edit
                                 </Link>
                                 <p>|</p>
+                                <button
+                                    className="hover:text-gray-600"
+                                    onClick={onDelete}
+                                >
+                                    delete
+                                </button>
+                                <p>|</p>
                             </>
                         )}
                         <p>0 comments</p>
                     </div>
-                </div>
-                <p className={clsx("block", { hidden: isEditing })}>
-                    {submission.text}
-                </p>
-                <div className={clsx("block", { hidden: !isEditing })}>
-                    <textarea
-                        cols={64}
-                        rows={5}
-                        value={editedText}
-                        onChange={(e) => setEditedText(e.target.value)}
-                        className="text-sm"
-                    />
-                    <button onClick={onEdit} className="block">
-                        save
-                    </button>
                 </div>
                 <textarea cols={64} rows={5} className="text-sm" />
                 <input className="block" type="submit" value={"add comment"} />

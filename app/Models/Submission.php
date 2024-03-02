@@ -15,6 +15,7 @@ class Submission extends Model
         'title',
         'url',
         'text',
+        'visibility',
         'user_id',
     ];
 
