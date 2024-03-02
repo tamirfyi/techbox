@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Submission;
+use App\Models\SubmissionCategory;
 use App\Models\SubmissionVisibility;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,7 @@ class SubmissionsController extends Controller
     public function index()
     {
         //Find submissions
-        $submissions = Submission::all()->where('visibility', SubmissionVisibility::Public);
+        $submissions = Submission::where('category', SubmissionCategory::All)->where('visibility', SubmissionVisibility::Public)->get();
         $submissions_with_metadata = [];
 
         foreach ($submissions as $submission) {
@@ -57,7 +58,8 @@ class SubmissionsController extends Controller
             'title' => 'required|string',
             'url' => 'nullable|string',
             'text' => 'required|string',
-            'visibility' => 'nullable|integer'
+            'visibility' => 'nullable|integer',
+            'category' => 'required|integer'
         ]);
 
         $submission = Submission::create([
@@ -65,6 +67,7 @@ class SubmissionsController extends Controller
             'url' => $request['url'],
             'text' => $request['text'],
             'visibility' => SubmissionVisibility::Public,
+            'category' => $request['category'],
             'user_id' => auth()->user()->getAuthIdentifier()
         ]);
 

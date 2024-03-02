@@ -16,6 +16,7 @@ class Submission extends Model
         'url',
         'text',
         'visibility',
+        'category',
         'user_id',
     ];
 
@@ -23,6 +24,14 @@ class Submission extends Model
     {
         return $this->belongsTo(User::class);
     }
+}
+
+enum SubmissionCategory: int
+{
+    case All = 0;
+    case Ask = 1;
+    case Show = 2;
+    case Jobs = 3;
 }
 
 enum SubmissionVisibility: int

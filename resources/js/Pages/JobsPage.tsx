@@ -7,8 +7,7 @@ interface HomePageProps extends PageProps {
     submissions: Array<SubmissionItem>;
 }
 
-export default function Home({ auth, submissions }: HomePageProps) {
-    console.log(submissions);
+export default function JobsPage({ auth, submissions }: HomePageProps) {
     return (
         <Authenticated user={auth.user}>
             <Head title="Techbox" />

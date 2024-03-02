@@ -23,15 +23,6 @@ export default function Authenticated({
                             </Link>
                             <section className="flex items-center justify-center gap-2 text-sm">
                                 <Link
-                                    href={"/welcome"}
-                                    method="get"
-                                    as="button"
-                                    type="button"
-                                >
-                                    welcome
-                                </Link>
-                                <p className="text-xs">|</p>
-                                <Link
                                     href={"/newest"}
                                     method="get"
                                     as="button"
