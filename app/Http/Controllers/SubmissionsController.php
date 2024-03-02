@@ -53,8 +53,8 @@ class SubmissionsController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'title' => 'required|string|max:64',
-            'url' => 'nullable|string|max:255',
+            'title' => 'required|string',
+            'url' => 'nullable|string',
             'text' => 'required|string',
         ]);
 
@@ -95,6 +95,8 @@ class SubmissionsController extends Controller
      */
     public function edit(string $id)
     {
+        $submission = Submission::find($id);
+        return Inertia::render('Edit', ["submission" => $submission]);
     }
 
     /**
@@ -102,9 +104,19 @@ class SubmissionsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'title' => 'required|string',
+            'url' => 'nullable|string',
+            'text' => 'required|string',
+        ]);
+
         $submission = Submission::find($id);
-        $submission->text = $request->text;
+        $submission->title = $request['title'];
+        $submission->url = $request['url'];
+        $submission->text = $request['text'];
         $submission->save();
+
+        return redirect(route('item', $id));
     }
 
     /**

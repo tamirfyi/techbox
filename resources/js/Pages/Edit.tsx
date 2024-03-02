@@ -1,18 +1,21 @@
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, router, useForm } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import InputError from "../Components/InputError";
+import { PageProps, SubmissionItem } from "@/types";
 
-export default function Submit({ auth }: PageProps) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        title: "",
-        url: "",
-        text: "",
+interface EditPageProps extends PageProps {
+    submission: SubmissionItem;
+}
+
+export default function Edit({ auth, submission }: EditPageProps) {
+    const { data, setData, put, processing, errors, reset } = useForm({
+        title: submission.title || "",
+        url: submission.url || "",
+        text: submission.text || "",
     });
 
     const submit = (e: any) => {
         e.preventDefault();
-        router.post(route("submit"));
+        put(route("item.update", submission.id));
     };
 
     return (
@@ -63,7 +66,7 @@ export default function Submit({ auth }: PageProps) {
                         </tr>
                     </tbody>
                 </table>
-                <input type="submit" value="submit" />
+                <input type="submit" value="save" />
             </form>
         </Authenticated>
     );

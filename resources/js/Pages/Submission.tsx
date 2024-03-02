@@ -1,5 +1,5 @@
 import Authenticated from "@/Layouts/Authenticated";
-import { Head, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import { formatDistance } from "date-fns";
 import { PageProps, SubmissionItem } from "@/types";
 import { useState } from "react";
@@ -42,12 +42,12 @@ export default function Submission({ auth, submission }: SubmissionPageProps) {
                         <p>|</p>
                         {submission.user_id == auth.user.id && (
                             <>
-                                <button
+                                <Link
                                     className="hover:text-gray-600"
-                                    onClick={() => setIsEditing(true)}
+                                    href={route("item.edit", submission.id)}
                                 >
                                     edit
-                                </button>
+                                </Link>
                                 <p>|</p>
                             </>
                         )}

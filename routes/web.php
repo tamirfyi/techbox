@@ -23,6 +23,10 @@ Route::get('/', [SubmissionsController::class, 'index']);
 
 Route::prefix('item')->group(function () {
     Route::get('/{id}', [SubmissionsController::class, 'show'])->name('item');
+});
+
+Route::prefix('edit')->group(function () {
+    Route::get('/{id}', [SubmissionsController::class, 'edit'])->name('item.edit');
     Route::put('/{id}', [SubmissionsController::class, 'update'])->name('item.update');
 });
 
