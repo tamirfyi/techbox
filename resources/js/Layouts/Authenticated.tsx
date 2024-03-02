@@ -23,7 +23,7 @@ export default function Authenticated({
                             </Link>
                             <section className="flex items-center justify-center gap-2 text-sm">
                                 <Link
-                                    href={"/newest"}
+                                    href={"?category=new"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -32,7 +32,7 @@ export default function Authenticated({
                                 </Link>
                                 <p className="text-xs">|</p>
                                 <Link
-                                    href={"/ask"}
+                                    href={"?category=ask"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -41,7 +41,7 @@ export default function Authenticated({
                                 </Link>
                                 <p className="text-xs">|</p>
                                 <Link
-                                    href={"/show"}
+                                    href={"?category=show"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -50,7 +50,7 @@ export default function Authenticated({
                                 </Link>
                                 <p className="text-xs">|</p>
                                 <Link
-                                    href={"/jobs"}
+                                    href={"?category=jobs"}
                                     method="get"
                                     as="button"
                                     type="button"

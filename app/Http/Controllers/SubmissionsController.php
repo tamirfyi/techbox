@@ -13,10 +13,28 @@ use Inertia\Inertia;
 
 class SubmissionsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //Find submissions
-        $submissions = Submission::where('category', SubmissionCategory::All)->where('visibility', SubmissionVisibility::Public)->get();
+        $submissions = null;
+
+        switch ($request->query('category')) {
+            case "ask":
+                $submissions = Submission::where('category', SubmissionCategory::Ask)->where('visibility', SubmissionVisibility::Public)->get();
+                break;
+            case "show":
+                $submissions = Submission::where('category', SubmissionCategory::Show)->where('visibility', SubmissionVisibility::Public)->get();
+                break;
+            case "jobs":
+                $submissions = Submission::where('category', SubmissionCategory::Jobs)->where('visibility', SubmissionVisibility::Public)->get();
+                break;
+            case "new":
+                $submissions = Submission::where('visibility', SubmissionVisibility::Public)->orderBy('created_at', 'desc')->get();
+                break;
+            default:
+                $submissions = Submission::where('category', SubmissionCategory::All)->where('visibility', SubmissionVisibility::Public)->get();
+                break;
+        }
+
         $submissions_with_metadata = [];
 
         foreach ($submissions as $submission) {
