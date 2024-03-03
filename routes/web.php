@@ -28,7 +28,6 @@ Route::prefix('item')->group(function () {
     Route::put('/delete/{id}', [SubmissionsController::class, 'delete'])->name('item.delete');
 });
 
-
 Route::prefix('submit')->group(function () {
     Route::get('/', [SubmissionsController::class, 'create'])->name('submit');
     Route::post('/', [SubmissionsController::class, 'store'])->name('submit');

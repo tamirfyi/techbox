@@ -23,7 +23,7 @@ export default function Authenticated({
                             </Link>
                             <section className="flex items-center justify-center gap-2 text-sm">
                                 <Link
-                                    href={"?category=new"}
+                                    href={"/?category=new"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -32,7 +32,7 @@ export default function Authenticated({
                                 </Link>
                                 <p className="text-xs">|</p>
                                 <Link
-                                    href={"?category=ask"}
+                                    href={"/?category=ask"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -41,7 +41,7 @@ export default function Authenticated({
                                 </Link>
                                 <p className="text-xs">|</p>
                                 <Link
-                                    href={"?category=show"}
+                                    href={"/?category=show"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -50,7 +50,7 @@ export default function Authenticated({
                                 </Link>
                                 <p className="text-xs">|</p>
                                 <Link
-                                    href={"?category=jobs"}
+                                    href={"/?category=jobs"}
                                     method="get"
                                     as="button"
                                     type="button"
@@ -70,7 +70,14 @@ export default function Authenticated({
                         </div>
 
                         <div className="flex justify-center items-center gap-1.5 text-sm">
-                            <p className="hover:cursor-pointer">{user.name}</p>
+                            <Link
+                                href={"/profile"}
+                                method="get"
+                                as="button"
+                                type="button"
+                            >
+                                {user.name}
+                            </Link>
                             <p>|</p>
                             <Link
                                 href={"/logout"}

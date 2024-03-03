@@ -1,6 +1,6 @@
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link, router } from "@inertiajs/react";
-import { formatDistance } from "date-fns";
+import { formatDistance, sub } from "date-fns";
 import { PageProps, SubmissionItem } from "@/types";
 import { useState } from "react";
 import clsx from "clsx";
@@ -9,11 +9,14 @@ interface SubmissionPageProps extends PageProps {
     submission: SubmissionItem;
 }
 
-export default function Submission({ auth, submission }: SubmissionPageProps) {
+export default function SubmissionPage({
+    auth,
+    submission,
+}: SubmissionPageProps) {
     const created = new Date(submission.created_at);
     const current = new Date();
     const timeAgo = formatDistance(created, current, { addSuffix: true });
-    const submissionMetaDataString = `0 points by ${submission.username} ${timeAgo} `;
+    const submissionMetaDataString = `by ${submission.username} ${timeAgo} `;
 
     const onDelete = () => {
         if (confirm("do you really want to delete your submission?")) {
@@ -45,14 +48,19 @@ export default function Submission({ auth, submission }: SubmissionPageProps) {
                                 >
                                     delete
                                 </button>
-                                <p>|</p>
                             </>
                         )}
-                        <p>0 comments</p>
                     </div>
                 </div>
-                <textarea cols={64} rows={5} className="text-sm" />
-                <input className="block" type="submit" value={"add comment"} />
+                <p className="pb-4">{submission.text}</p>
+                {/* <div>
+                    <textarea cols={64} rows={5} className="text-sm" />
+                    <input
+                        className="block"
+                        type="submit"
+                        value={"add comment"}
+                    />
+                </div> */}
             </section>
         </Authenticated>
     );
