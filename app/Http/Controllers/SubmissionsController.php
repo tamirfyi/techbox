@@ -108,7 +108,7 @@ class SubmissionsController extends Controller
             'url' => $submission->url,
             'text' => $submission->text,
             'created_at' => $submission->created_at,
-            'username' => $user->name,
+            'username' => $user->username,
             'user_id' => $user->id,
         ];
         return Inertia::render('SubmissionPage', ["submission" => $submission_with_metadata]);
