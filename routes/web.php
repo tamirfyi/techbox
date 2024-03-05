@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\SubmissionsController;
 use App\Models\Submission;
 use App\Models\User;
@@ -31,6 +32,10 @@ Route::prefix('item')->group(function () {
 Route::prefix('submit')->group(function () {
     Route::get('/', [SubmissionsController::class, 'create'])->name('submit');
     Route::post('/', [SubmissionsController::class, 'store'])->name('submit');
+});
+
+Route::prefix('reply')->group(function () {
+    Route::post('/', [RepliesController::class, 'store'])->name('reply');
 });
 
 Route::middleware('auth')->group(function () {

@@ -1,7 +1,7 @@
 import { Config } from "ziggy-js";
 
 export interface User {
-    id: number;
+    id: string;
     username: string;
     email: string;
     email_verified_at: string;
@@ -22,7 +22,19 @@ export interface SubmissionItem {
     url: string;
     text: string;
     username: string;
-    user_id: number;
+    user_id: string;
+    created_at: Date;
+    updated_at: Date;
+}
+
+export interface ReplyItem {
+    id: string;
+    text: string;
+    username: string;
+    user_id: string;
+    reply_id: string;
+    submission_id: string;
+    visibility: number;
     created_at: Date;
     updated_at: Date;
 }

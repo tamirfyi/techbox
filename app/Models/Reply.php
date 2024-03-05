@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Submission extends Model
+class Reply extends Model
 {
     use HasFactory;
     use HasUuids;
 
     protected $fillable = [
-        'title',
-        'url',
         'text',
         'visibility',
-        'category',
+        'submission_id',
+        'reply_id',
         'user_id',
     ];
 
@@ -31,19 +30,9 @@ class Submission extends Model
     }
 }
 
-enum SubmissionCategory: int
-{
-    case All = 0;
-    case Ask = 1;
-    case Show = 2;
-    case Jobs = 3;
-}
-
-enum SubmissionVisibility: int
+enum ReplyVisibility: int
 {
     case Public = 0;
-    case Private = 1;
-    case Deleted = 2;
-    case Hidden = 3;
-    case Removed = 4;
+    case Deleted = 1;
+    case Removed = 2;
 }

@@ -1,22 +1,40 @@
 import Authenticated from "@/Layouts/Authenticated";
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import { formatDistance, sub } from "date-fns";
-import { PageProps, SubmissionItem } from "@/types";
+import { PageProps, ReplyItem, SubmissionItem } from "@/types";
 import { useState } from "react";
 import clsx from "clsx";
 
 interface SubmissionPageProps extends PageProps {
     submission: SubmissionItem;
+    replies: Array<ReplyItem>;
 }
 
 export default function SubmissionPage({
     auth,
     submission,
+    replies,
 }: SubmissionPageProps) {
     const created = new Date(submission.created_at);
     const current = new Date();
     const timeAgo = formatDistance(created, current, { addSuffix: true });
     const submissionMetaDataString = `by ${submission.username} ${timeAgo} `;
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        reply: "",
+    });
+
+    const onSubmitComment = (e: any) => {
+        e.preventDefault();
+        post(
+            route("reply", {
+                text: data.reply,
+                reply_id: null,
+                submission_id: submission.id,
+            })
+        );
+        setData("reply", "");
+    };
 
     const onDelete = () => {
         if (confirm("do you really want to delete your submission?")) {
@@ -53,14 +71,42 @@ export default function SubmissionPage({
                     </div>
                 </div>
                 <p className="pb-4">{submission.text}</p>
-                {/* <div>
-                    <textarea cols={64} rows={5} className="text-sm" />
+                <form onSubmit={onSubmitComment} className="pb-10">
+                    <textarea
+                        cols={64}
+                        rows={5}
+                        className="text-sm"
+                        value={data.reply}
+                        onChange={(e) => setData("reply", e.target.value)}
+                    />
                     <input
                         className="block"
                         type="submit"
-                        value={"add comment"}
+                        value={"add reply"}
                     />
-                </div> */}
+                </form>
+                <section className="space-y-4">
+                    {replies.map((reply: ReplyItem) => {
+                        const created = new Date(reply.created_at);
+                        const current = new Date();
+                        const timeAgo = formatDistance(created, current, {
+                            addSuffix: true,
+                        });
+
+                        const replyWithMetaData = `by ${reply.username} ${timeAgo}`;
+                        return (
+                            <div className="">
+                                <p className="pb-0.5 text-xs">
+                                    {replyWithMetaData}
+                                </p>
+                                <p className="pb-1">{reply.text}</p>
+                                <button className="text-xs underline hover:text-gray-600">
+                                    reply
+                                </button>
+                            </div>
+                        );
+                    })}
+                </section>
             </section>
         </Authenticated>
     );

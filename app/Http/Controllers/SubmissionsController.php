@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reply;
 use App\Models\Submission;
 use App\Models\SubmissionCategory;
 use App\Models\SubmissionVisibility;
@@ -102,6 +103,19 @@ class SubmissionsController extends Controller
     {
         $submission = Submission::find($id);
         $user = User::find($submission->user_id);
+        $replies = Reply::all()->where('submission_id', $id);
+
+        $replies_with_metadata = $replies->map(function ($reply) {
+            $user = User::find($reply->user_id);
+            return (object) [
+                'id' => $reply->id,
+                'text' => $reply->text,
+                'visibility' => $reply->visibility,
+                'created_at' => $reply->created_at,
+                'username' => $user->username,
+            ];
+        });
+
         $submission_with_metadata = (object) [
             'id' => $submission->id,
             'title' => $submission->title,
@@ -111,7 +125,9 @@ class SubmissionsController extends Controller
             'username' => $user->username,
             'user_id' => $user->id,
         ];
-        return Inertia::render('SubmissionPage', ["submission" => $submission_with_metadata]);
+
+
+        return Inertia::render('SubmissionPage', ["submission" => $submission_with_metadata, "replies" => $replies_with_metadata]);
     }
 
     /**
