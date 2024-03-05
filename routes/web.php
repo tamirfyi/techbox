@@ -19,7 +19,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [SubmissionsController::class, 'index']);
+Route::get('/', [SubmissionsController::class, 'index'])->name('index');
 
 Route::prefix('item')->group(function () {
     Route::get('/{id}', [SubmissionsController::class, 'show'])->name('item');

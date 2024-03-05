@@ -76,7 +76,7 @@ export default function Authenticated({
                                 as="button"
                                 type="button"
                             >
-                                {user.name}
+                                {user.username}
                             </Link>
                             <p>|</p>
                             <Link
