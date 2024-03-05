@@ -45,7 +45,7 @@ class SubmissionsController extends Controller
                 'url' => $submission->url,
                 'text' => $submission->text,
                 'created_at' => $submission->created_at,
-                'username' => $user->name,
+                'username' => $user->username,
             ];
 
             $submissions_with_metadata[] = $submission_with_metadata;
